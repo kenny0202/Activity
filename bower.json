@@ -1,0 +1,26 @@
+{
+  "name": "Activity",
+  "description": "",
+  "main": "main.js",
+  "authors": [
+    "Kenny <kenny020259@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.4.3",
+    "paper-listbox": "polymerelements/paper-listbox#^1.1.2",
+    "paper-item": "PolymerElements/paper-item#^1.2.1",
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "iron-icons": "PolymerElements/iron-icons#^1.2.0",
+    "paper-fab": "PolymerElements/paper-fab#^1.2.1",
+    "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
+    "paper-input": "PolymerElements/paper-input#^1.1.22",
+    "paper-checkbox": "PolymerElements/paper-checkbox#^1.4.2",
+    "iron-scroll-target-behavior": "PolymerElements/iron-scroll-target-behavior#^1.1.1",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.5",
+    "paper-tabs": "PolymerElements/paper-tabs#^1.7.0",
+    "iron-pages": "PolymerElements/iron-pages#^1.0.8",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.3.1"
+  }
+}

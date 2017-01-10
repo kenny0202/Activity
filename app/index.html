@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Activity</title>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="bower_components/paper-item/paper-item.html">
+    <link rel="import" href="bower_components/paper-button/paper-button.html">
+
+    <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
+    <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
+
+    <link rel="import" href="bower_components/paper-fab/paper-fab.html">
+    <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
+    <link rel="import" href="bower_components/paper-input/paper-input.html">
+    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+
+    <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+    <link href="bower_components/iron-pages/iron-pages.html" rel="import">
+
+    <link href="bower_components/iron-grid/iron-grid.html" rel="import">
+    <style is="custom-style">
+      .flex-equal-around-justified {
+        @apply(--layout-horizontal);
+        @apply(--layout-around-justified);
+      }
+      #tab2_title {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <template is="dom-bind" id="scope">
+      <paper-tabs selected="{{selected}}">
+        <paper-tab>Acitivty</paper-tab>
+        <paper-tab>Add/Edit</paper-tab>
+      </paper-tabs>
+
+      <iron-pages selected="{{selected}}">
+        <div>
+          <h2>What would you like to do?</h2>
+          <paper-dropdown-menu label="Activity Selection">
+            <paper-listbox class="dropdown-content">
+              <paper-item>Coffee</paper-item>
+              <paper-item>Lunch</paper-item>
+              <paper-item>Vending Machine</paper-item>
+              <paper-item>Shipping</paper-item>
+              <paper-item>Pool</paper-item>
+            </paper-listbox>
+          </paper-dropdown-menu>
+
+          <paper-button raised onclick="confirm_activity.open()">Confirm</paper-button>
+
+          <paper-dialog id="confirm_activity" modal>
+            <h3>Select recipient's</h3>
+            <paper-dialog-scrollable>
+              <paper-item>
+                <paper-checkbox>Yasha</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Shah</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Jeff</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Kevin</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Lily</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Grace</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Jason</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Chris</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Jack</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Tina</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Ricky</paper-checkbox>
+              </paper-item>
+              <paper-item>
+                <paper-checkbox>Olivia</paper-checkbox>
+              </paper-item>
+            </paper-dialog-scrollable>
+            </br>
+            <div class="buttons">
+              <paper-button raised dialog-confirm autofocus>Send</paper-button>
+              <paper-button raised dialog-confirm autofocus>Cancel</paper-button>
+            </div>
+          </paper-dialog>
+        </div>
+        <div>
+          <h3 id="tab2_title">Select an option</h3>
+          <div class="container flex-equal-around-justified">
+            <div>
+              <paper-fab icon="add" onclick="add_activity.open()"></paper-fab>
+              <paper-dialog id="add_activity" modal>
+                <h3>Select an option to add</h3>
+                <paper-item>Activities</paper-item>
+                <paper-item>Names</paper-item>
+                </br>
+                <div class="buttons">
+                  <paper-button raised dialog-confirm autofocus>close</paper-button>
+                </div>
+              </paper-dialog>
+            </div>
+            <div>
+              <paper-fab icon="create" onclick="edit_activity_name.open()"></paper-fab>
+              <paper-dialog id="edit_activity_name" modal>
+                <h3>Select an option to edit</h3>
+                <paper-item>Activities</paper-item>
+                <paper-item>Names</paper-item>
+                </br>
+                <div class="buttons">
+                  <paper-button raised dialog-confirm autofocus>close</paper-button>
+                </div>
+              </paper-dialog>
+            </div>
+          </div>
+        </div>
+      </iron-pages>
+    </template>
+    <script>
+      document.addEventListener('WebComponentsReady', function () {
+        var template = document.querySelector('template[is="dom-bind"]');
+        template.selected = 0; // selected is an index by default
+      });
+    </script>
+  </body>
+</html>

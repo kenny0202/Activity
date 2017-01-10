@@ -1,0 +1,9 @@
+{
+  "name": "Activity",
+  "version": "0.1.0",
+  "main": "main.js",
+  "dependencies": {
+    "electron-positioner": "^3.0.0",
+    "menubar": "^5.2.0"
+  }
+}
