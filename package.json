@@ -4,6 +4,7 @@
   "main": "main.js",
   "dependencies": {
     "electron-positioner": "^3.0.0",
+    "hdb": "^0.10.0",
     "menubar": "^5.2.0"
   }
 }

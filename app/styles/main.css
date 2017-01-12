@@ -1,0 +1,43 @@
+body {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+}
+
+div {
+	text-align: center;
+}
+
+#tab1_title {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#tab2_title {
+	text-align: center;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+#next {
+	color: #2196F3;
+	font-weight: bold;
+}
+
+#next_step {
+	background: #2196F3;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+
+#cancel {
+	color: #4CAF50;
+	font-weight: bold;
+}
+
+#delete {
+	color: #F44336;
+	font-weight: bold;
+}
+
+

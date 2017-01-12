@@ -10,7 +10,7 @@ let win
 
 function createWindow () {
   // Create the browser window.
-  win = new BrowserWindow({width: 350, height: 550, resizable: false, movable: false, backgroundColor: '#CCFF90'})
+  win = new BrowserWindow({width: 350, height: 550, resizable: false, movable: false, backgroundColor: '#B9F6CA'})
 
   // and load the index.html of the app.
   win.loadURL(url.format({

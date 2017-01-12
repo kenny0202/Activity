@@ -1,43 +1,42 @@
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
     <title>Activity</title>
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
-    <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
-    <link rel="import" href="bower_components/paper-item/paper-item.html">
-    <link rel="import" href="bower_components/paper-button/paper-button.html">
-    <link rel="import" href="bower_components/paper-time-picker/paper-time-picker.html">
-    <link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-    <link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
-    <link rel="import" href="bower_components/paper-fab/paper-fab.html">
-    <link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
-    <link rel="import" href="bower_components/paper-input/paper-input.html">
-    <link rel="import" href="bower_components/iron-icons/iron-icons.html">
-    <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
-    <link href="bower_components/iron-pages/iron-pages.html" rel="import">
-    <link href="bower_components/iron-grid/iron-grid.html" rel="import">
-    <style is="custom-style">
+    <link rel="import" href="elements/elements.html">
+    <style is="custom-style" is="shared-style">
       .flex-equal-around-justified {
         @apply(--layout-horizontal);
         @apply(--layout-around-justified);
       }
-      #tab2_title {
-        text-align: center;
+      :root {
+        --paper-toolbar-background: #FF5722;
+        --paper-tabs-selection-bar-color: #3F51B5;
+        --paper-tab-ink: #3F51B5;
+        --paper-tabs: {
+          background: #FF5722;
+          color: #FFFFFF;
+          font-size: 20px;
+          width: 100%;
+          text-align: center;
+        }
       }
     </style>
+    <link rel="stylesheet" href="styles/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   </head>
-  <body>
+  <body unresolved class="fullbleed layout vertical">
     <template is="dom-bind" id="scope">
+      <paper-toolbar>
       <paper-tabs selected="{{selected}}">
-        <paper-tab>Acitivty</paper-tab>
+        <paper-tab>Activty</paper-tab>
         <paper-tab>Add/Edit</paper-tab>
       </paper-tabs>
+      </paper-toolbar>
 
       <iron-pages selected="{{selected}}">
         <div>
-          <h2>What would you like to do?</h2>
+          <p id="tab1_title">What would you like to do?</p>
           <paper-dropdown-menu label="Activity Selection">
             <paper-listbox class="dropdown-content">
               <paper-item>Coffee</paper-item>
@@ -47,13 +46,13 @@
               <paper-item>Pool</paper-item>
             </paper-listbox>
           </paper-dropdown-menu>
-          <paper-button raised onclick="dialog.open()">Next</paper-button>
+          <paper-button id="next_step" raised onclick="dialog.open()">Next</paper-button>
           <paper-dialog id="dialog" modal class="paper-time-picker-dialog"
             on-iron-overlay-closed="dismissDialog">
             <paper-time-picker id="timePicker" time="[[time]]"></paper-time-picker> 
             <div class="buttons">
-              <paper-button dialog-dismiss>Cancel</paper-button>
-              <paper-button dialog-confirm onclick="confirm_activity.open()">Next</paper-button>
+              <paper-button id="next" dialog-confirm onclick="confirm_activity.open()">Next</paper-button>
+              <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
             </div>
           </paper-dialog>
           <paper-dialog id="confirm_activity" modal>
@@ -98,8 +97,8 @@
             </paper-dialog-scrollable>
             </br>
             <div class="buttons">
-              <paper-button raised dialog-confirm autofocus onclick="confirmation_summary.open()" dialog-dismiss>Confirm</paper-button>
-              <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+              <paper-button id="next" dialog-confirm onclick="confirmation_summary.open()" dialog-dismiss>Confirm</paper-button>
+              <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
             </div>
           </paper-dialog>
           <paper-dialog id="confirmation_summary" modal>
@@ -109,13 +108,13 @@
             <p>post.time</p>
             <p>post.people</p>
             <div class="buttons">
-              <paper-button raised dialog-dismiss autofocus>Send</paper-button>
-              <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+              <paper-button id="next" dialog-dismiss>Send</paper-button>
+              <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
             </div>
           </paper-dialog>
         </div>
         <div>
-          <h3 id="tab2_title">Select an option</h3>
+          <p id="tab2_title">Select an option</p>
           <div class="container flex-equal-around-justified">
             <div>
               <paper-fab icon="add" onclick="add_option.open()"></paper-fab>
@@ -125,7 +124,7 @@
                 <paper-item onclick="add_name.open()" dialog-dismiss>Names</paper-item>
                 </br>
                 <div class="buttons">
-                  <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                  <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
                 </div>
               </paper-dialog>
             </div>
@@ -134,8 +133,8 @@
               <paper-input label="Activity"></paper-input>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-confirm autofocus>Save</paper-button>
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="next" dialog-confirm>Save</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
             <paper-dialog id="add_name" modal>
@@ -143,8 +142,8 @@
               <paper-input label="Name"></paper-input>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-confirm autofocus>Save</paper-button>
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="next" dialog-confirm>Save</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
             <div>
@@ -155,7 +154,7 @@
                 <paper-item onclick="edit_name.open()" dialog-dismiss>Names</paper-item>
                 </br>
                 <div class="buttons">
-                  <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                  <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
                 </div>
               </paper-dialog>
             </div>
@@ -164,7 +163,7 @@
               <paper-item onclick="edit_selected_activity.open()" dialog-dismiss>Activities</paper-item>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
             <paper-dialog id="edit_selected_activity" modal>
@@ -172,8 +171,9 @@
               <paper-input label="Activity">item</paper-input>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-confirm autofocus>Save</paper-button>
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="next" dialog-confirm>Save</paper-button>
+                <paper-button id="delete" dialog-dismiss>Delete</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
             <paper-dialog id="edit_name" modal>
@@ -181,7 +181,7 @@
               <paper-item onclick="edit_selected_name.open()" dialog-dismiss>Names</paper-item>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
             <paper-dialog id="edit_selected_name" modal>
@@ -189,8 +189,9 @@
               <paper-input label="Name">item</paper-input>
               </br>
               <div class="buttons">
-                <paper-button raised dialog-confirm autofocus>Save</paper-button>
-                <paper-button raised dialog-dismiss autofocus>Cancel</paper-button>
+                <paper-button id="next" dialog-confirm>Save</paper-button>
+                <paper-button id="delete" dialog-dismiss>Delete</paper-button>
+                <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
             </paper-dialog>
           </div>
