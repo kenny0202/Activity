@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu, Tray} = require('electron')
 const Positioner = require('electron-positioner')
 //const menubar = require('menubar')
 const path = require('path')
@@ -7,6 +7,7 @@ const url = require('url')
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
+
 
 function createWindow () {
   // Create the browser window.
@@ -42,6 +43,30 @@ function createWindow () {
     win = null
   })
 }
+
+function toggleWindow() {
+  if (win.isVisible()) {
+    win.webContents.send('setVisible', false);
+        setTimeout(function () {
+            win.hide();
+        }, 300);
+    }
+  else {
+        win.show();
+    win.webContents.send('setVisible', true);
+    }
+}
+
+let tray = null
+app.on('ready', () => {
+  tray = new Tray(path.join(__dirname, 'act.png'))
+  const contextMenu = Menu.buildFromTemplate([
+    { label: 'Show/Hide', type: 'normal', click: function () { toggleWindow(); } },
+    { label: 'Exit', type: 'normal', click: function() { app.quit(); } }
+  ])
+  tray.setToolTip('Activity')
+  tray.setContextMenu(contextMenu)
+})
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
