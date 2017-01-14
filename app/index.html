@@ -38,12 +38,18 @@
         <div>
           <p id="tab1_title">What would you like to do?</p>
           <paper-dropdown-menu label="Activity Selection">
+            <iron-ajax 
+              id="getPost"
+              auto
+              url="http://kennyghui.com/other/Activity/getActivity.php"
+              handle-as="json"
+              on-response="handleResponse"
+              last-response="{{activityResponse}}">
+            </iron-ajax>
             <paper-listbox class="dropdown-content">
-              <paper-item>Coffee</paper-item>
-              <paper-item>Lunch</paper-item>
-              <paper-item>Vending Machine</paper-item>
-              <paper-item>Shipping</paper-item>
-              <paper-item>Pool</paper-item>
+              <template is="dom-repeat" items="[[activityResponse]]">
+                <paper-item><b>{{item.ACTIVITY_NAME}}</b></paper-item>
+              </template>       
             </paper-listbox>
           </paper-dropdown-menu>
           <paper-button id="next_step" raised onclick="dialog.open()">Next</paper-button>
@@ -57,43 +63,20 @@
           </paper-dialog>
           <paper-dialog id="confirm_activity" modal>
             <h3>Select recipient's</h3>
+            <iron-ajax 
+              id="getPost"
+              auto
+              url="http://kennyghui.com/other/Activity/getName.php"
+              handle-as="json"
+              on-response="handleResponse"
+              last-response="{{nameResponse}}">
+            </iron-ajax>
             <paper-dialog-scrollable>
-              <paper-item>
-                <paper-checkbox>Yasha</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Shah</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Jeff</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Kevin</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Lily</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Grace</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Jason</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Chris</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Jack</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Tina</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Ricky</paper-checkbox>
-              </paper-item>
-              <paper-item>
-                <paper-checkbox>Olivia</paper-checkbox>
-              </paper-item>
+              <template is="dom-repeat" items="[[nameResponse]]">
+                <paper-item>
+                  <paper-checkbox>{{item.NAME}}</paper-checkbox>
+                </paper-item>
+              </template>
             </paper-dialog-scrollable>
             </br>
             <div class="buttons">
@@ -160,14 +143,18 @@
             </div>
             <paper-dialog id="edit_activity" modal>
               <h3>Select an activity to edit</h3>
-              <paper-item onclick="edit_selected_activity.open()" dialog-dismiss>Activities</paper-item>
+              <paper-dialog-scrollable>
+              <template is="dom-repeat" items="[[activityResponse]]">
+                <paper-item onclick="edit_selected_activity.open()" dialog-dismiss>{{item.ACTIVITY_NAME}}</paper-item>
+              </template>
               </br>
               <div class="buttons">
                 <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
+              </paper-dialog-scrollable>
             </paper-dialog>
             <paper-dialog id="edit_selected_activity" modal>
-              <h3>Activity Name</h3>
+              <h3>Edit activity.name</h3>
               <paper-input label="Activity">item</paper-input>
               </br>
               <div class="buttons">
@@ -178,14 +165,18 @@
             </paper-dialog>
             <paper-dialog id="edit_name" modal>
               <h3>Select a name to edit</h3>
-              <paper-item onclick="edit_selected_name.open()" dialog-dismiss>Names</paper-item>
+              <paper-dialog-scrollable>
+              <template is="dom-repeat" items="[[nameResponse]]">
+                <paper-item onclick="edit_selected_name.open()" dialog-dismiss>{{item.NAME}}</paper-item>
+              </template>
               </br>
               <div class="buttons">
                 <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
               </div>
+              </paper-dialog-scrollable>
             </paper-dialog>
             <paper-dialog id="edit_selected_name" modal>
-              <h3>Person's Name</h3>
+              <h3>Edit person.name</h3>
               <paper-input label="Name">item</paper-input>
               </br>
               <div class="buttons">
@@ -201,7 +192,7 @@
     <script>
       document.addEventListener('WebComponentsReady', function () {
         var template = document.querySelector('template[is="dom-bind"]');
-        template.selected = 0; // selected is an index by default
+        template.selected = 0; 
       });
     </script>
   </body>

@@ -1,23 +1,32 @@
-var hdb    = require('hdb');
-var client = hdb.createClient({
-  host           : 'stii850366trial', // system database host
-  port           : '30055',
-  databaseName   : 'STI',      // name of a particular tenant database
-  user           : 'SYSTEM',     // user for the tenant database
-  password       : '360876Kh'    // password for the user specified
+var mysql      = require('mysql');
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  database : 'test'
 });
-client.on('error', function (err) {
-  console.error('Network connection error', err);
-});
-client.connect(function (err) {
+
+connection.connect();
+
+/*connection.query('SELECT * FROM NAME', function(err, rows, fields) {
   if (err) {
-    return console.error('Connect error', err);
+    console.error('error connecting: ' + err.stack);
+    return;
   }
-  client.exec('select * from DUMMY', function (err, rows) {
-    client.end();
-    if (err) {
-      return console.error('Execute error:', err);
-    }
-    console.log('Results:', rows);
-  });
+  for (var i = 0; i < rows.length; i++) {
+    console.log(rows[i].NAME);
+  };
+});*/
+
+connection.query('SELECT * FROM ACTIVITY', function(err, rows, fields) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+  json = JSON.stringify(rows);
+  console.log(json);
+
 });
+
+
+
+connection.end();
