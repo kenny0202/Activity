@@ -90,11 +90,10 @@
             <p>post.activity</p>
             <p>post.time</p>
             <p>post.people</p>
-            <div class="buttons">
-              <paper-button id="next" dialog-dismiss>Send</paper-button>
-              <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
-            </div>
-          </paper-dialog>
+            <paper-button id="next" dialog-confirm onclick="activity_confirmation.open()">Send</paper-button>
+            <paper-toast id="activity_confirmation" class="fit-bottom">Activity has been sent.</paper-toast>
+            <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
+          </paper-dialog>          
         </div>
         <div>
           <p id="tab2_title">Select an option</p>
@@ -113,24 +112,24 @@
             </div>
             <paper-dialog id="add_activity" modal>
               <h3>Add an activity</h3>
-              <paper-input label="Activity"></paper-input>
-              </br>
-              <div class="buttons">
-                <paper-button id="next" dialog-confirm>Save</paper-button>
+              <form is="iron-form" name="addActivity" id="activityForm" method="post" action="http://kennyghui.com/other/Activity/addActivity.php">
+                <paper-input label="Activity" name="activity_name" id="activity_name"></paper-input>
+                </br>
+                <paper-button id="next" dialog-confirm onclick="add_new_activity(event)">Save</paper-button>
                 <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
-              </div>
+              </form>
             </paper-dialog>
             <paper-dialog id="add_name" modal>
               <h3>Add a name</h3>
-              <paper-input label="Name"></paper-input>
-              </br>
-              <div class="buttons">
-                <paper-button id="next" dialog-confirm>Save</paper-button>
+              <form is="iron-form" name="addName" id="nameForm" method="post" action="http://kennyghui.com/other/Activity/addName.php">
+                <paper-input label="Name" name="person_name" id="person_name"></paper-input>
+                </br>
+                <paper-button id="next" dialog-confirm onclick="add_new_name(event)">Save</paper-button>
                 <paper-button id="cancel" dialog-dismiss>Cancel</paper-button>
-              </div>
+              </form>
             </paper-dialog>
             <div>
-              <paper-fab icon="create" onclick="edit_option.open()"></paper-fab>
+              <paper-fab icon="create" onclick="fab_open_edit()"></paper-fab>
               <paper-dialog id="edit_option" modal>
                 <h3>Select an option to edit</h3>
                 <paper-item onclick="edit_activity.open()" dialog-dismiss>Activities</paper-item>
@@ -194,6 +193,41 @@
         var template = document.querySelector('template[is="dom-bind"]');
         template.selected = 0; 
       });
+
+      function updateActivity_list() {
+        document.getElementById('getPost').generateRequest();
+      }
+
+      function updateName_list() {
+        document.getElementById('getPost').generateRequest();
+      }
+
+      function add_new_activity(event) {
+      var name = document.forms["addActivity"]["activity_name"].value;
+      if(name == null || name == "") {
+        return false;
+      } 
+        Polymer.dom(event).localTarget.parentElement.submit();
+        Polymer.dom(event).localTarget.parentElement.reset();
+        add_activity.close();
+      }
+
+      function add_new_name(event) {
+        var name = document.forms["addName"]["person_name"].value;
+        if(name == null || name == "") {
+          return false;
+        } 
+          Polymer.dom(event).localTarget.parentElement.submit();
+          Polymer.dom(event).localTarget.parentElement.reset();
+          updateName_list();
+          add_name.close();
+      }
+      
+      function fab_open_edit() {
+        edit_option.open();
+        updateName_list();
+        updateActivity_list();
+      }
     </script>
   </body>
 </html>
